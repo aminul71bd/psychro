@@ -1,0 +1,33 @@
+NEWTONIA FREEWARE LICENSE
+'psychro' is a python package or library that calculates the physical and thermodynamic 
+properties of pure air-water system. This is an engineering tool that helps to 
+simulate air-water system. It will help the researchers and educationists working
+in agriculture, weather forcasting and in process industries.
+
+Hereby, software, package or library means this package 'psychro' written on python 
+language by A K M Aminul Islam (author), director of Newtonia Ltd, a Bangladeshi 
+company, registered under the joint stack of companies. A K M Aminul Islam, email 
+address: aminul71bd@gmail.com, is the maintainer of this software and he is the sole 
+proprietor or owner of this software.
+
+The author means the writer of this software, A K M Aminul Islam.
+
+A user of this software is a person, an organization, a device, an instrument or another
+software that uses or distributes it to other persons, entities or machines.
+
+This software is written in the Python programming language. Python is a permissive free open 
+source software (FOSS). Hereby, it is declared that the license type of this software 
+is FREEWARE under the following permissions and restrictions:
+  1) This software can be used free for non-commercial learning, educational and research 
+     purpose only;
+  2) Source code is open to distribute; but source code cannot be modified, edited and 
+     distributed without the legal permission from the author;
+  3) The user cannot issue sublicense of any part of this software;
+  4) An application software, made for non-commercial educational and research purposes, 
+     can use this software by mentioning the identity of the author and his company.
+
+It is not guaranteed that this software will produce all the time the accurate result 
+(correct to the given precision) of mathematical operations. In most cases, accuracy within 
+2% is maintained.
+
+You are cordially welcome for using this software.

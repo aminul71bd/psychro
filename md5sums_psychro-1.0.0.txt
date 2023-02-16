@@ -1,0 +1,17 @@
+372ed9fa6737483b0c732a2a936a8107	author_photo_w250.jpg
+6b6e4a50070377a7a84106ae8eac575e	LICENSE
+0952eabda98c986bb3ed62888caedaa1	MANIFEST.in
+10cd07edbe06c54c06f1c6cd7ad47335	README.md
+3e3cc849b810cf2bf6cdad0a14fabea5	setup.py
+
+df7babc82e18c5f46841d7fa2cf4e70e	dist/psychro-1.0.0.tar.gz
+7c93e30e27c44f8a3a6393d1dc34af88	dist/psychro-1.0.0-py3-none-any.whl
+
+1d34e8169a5b5bcd189451fde2d8ddb4	psychro/__init__.py
+edd0c451d12af3ce0202d9e603ca40b3	psychro/lib.py
+
+d64f68604c31af3ee7a88511ca10b012	psychro/src/Prefix.py
+a03bf617ebb3836fca3bb43dd24acb68	psychro/src/Pressure.py
+fd814590d6c253740ce95a21bb7e77c9	psychro/src/psychro_functions.py
+87c3569b1a43b8ab94dc56973a29ae92	psychro/src/Temperature.py
+578a1bd9af5905464aaafb089e0d482c	psychro/src/Unit.py

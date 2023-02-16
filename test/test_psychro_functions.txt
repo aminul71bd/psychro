@@ -1,0 +1,1354 @@
+>>>
+>>> import psychro.psychro_functions as psyf
+>>> iml.reload(psyf)
+<module 'psychro.psychro_functions' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\psychro_functions.py'>
+>>>
+>>>
+>>> import psychro.Temperature as temp
+>>> import psychro.Pressure as pressure
+>>>
+>>> t1=temp.Temperature(25,'C')
+>>> t2=temp.Temperature(100,'C')
+>>>
+>>> p1=pressure.Pressure(0.5,'mHg')
+>>> p2=pressure.Pressure(900,'mmHg')
+>>>
+>>> str(t1);str(t2);str(p1);str(p2)
+'TEMPERATURE: 25 degree C'
+'TEMPERATURE: 100 degree C'
+'PRESSURE: 0.5 mHg absolute'
+'PRESSURE: 0.9 mHg absolute'
+>>>
+>>>
+>>> import time
+>>>
+# =========================================
+# Function No: 01
+# Test on satTemperature(vapPressure=None)
+# =========================================
+>>> time1=time.time();psyf.vaporPressure(t1);time.time()-time1
+3167.2605348998427 Pa
+0.015624046325683594
+>>>
+>>> time1=time.time();psyf.vaporPressure(t2);time.time()-time1
+101322.73929367663 Pa
+0.0
+>>>
+>>> time1=time.time();p3=psyf.vaporPressure(t1);time.time()-time1
+0.0
+>>>
+>>> time1=time.time();p4=psyf.vaporPressure(t2);time.time()-time1
+0.0
+>>>
+>>> str(p3)
+'PRESSURE: 0.0238 mHg absolute'
+>>> str(p4)
+'PRESSURE: 0.76 mHg absolute'
+>>>
+-------------
+Result: Okay
+-------------
+
+# =========================================
+# Function No: 02
+# Test on satTemperature(vapPressure=None)
+# =========================================
+>>>
+>>> str(p1)
+'PRESSURE: 0.5 mHg absolute'
+>>>
+>>> time1=time.time();psyf.satTemperature(p1);time.time()-time1
+88.67818334898607 C
+0.0
+>>>
+>>> str(p2)
+'PRESSURE: 0.9 mHg absolute'
+>>>
+>>> time1=time.time();psyf.satTemperature(p2);time.time()-time1
+104.8054940190749 C
+0.0
+>>>
+>>> str(p3)
+'PRESSURE: 0.0238 mHg absolute'
+>>>
+>>> time1=time.time();psyf.satTemperature(p3);time.time()-time1
+25.0 C
+0.04687905311584473
+>>>
+>>> str(p4)
+'PRESSURE: 0.76 mHg absolute'
+>>>
+>>> time1=time.time();psyf.satTemperature(p4);time.time()-time1
+100.0 C
+0.0
+>>>
+-------------
+Result: Okay
+-------------
+
+# ==========================================
+# Function No: 03
+# Test on dryAirPressure(temperature=None)
+# ==========================================
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(15,'C'))
+99621.23763735183 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(25,'C'))
+103078.50772714367 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(40,'C'))
+108264.41286183143 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(60,'C'))
+115178.95304141511 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(80,'C'))
+122093.49322099879 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(100,'C'))
+129008.03340058247 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(200,'C'))
+163580.73429850084 Pa
+>>>
+>>> psyf.dryAirPressure(temp.Temperature(1000,'C'))
+440162.34148184804 Pa
+>>>
+-------------
+Result: Okay
+-------------
+
+# =================================================================
+# Function No: 04
+# Test on totalAirPressure(temperature = None, relHumidity = None)
+# =================================================================
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(15,'C'),relHumidity=100)
+101325.0 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(25,'C'),relHumidity=30)
+106245.76826204352 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(25,'C'),relHumidity=70)
+106245.76826204352 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(25,'C'),relHumidity=100)
+106245.76826204352 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(40,'C'),relHumidity=100)
+115641.35974691421 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(100,'C'),relHumidity=100)
+230330.7726942591 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(500,'C'),relHumidity=100)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\A K M Aminul Islam\python_projects\psychro-1.0.0\psychro\psychro_functions.py", line 89, in totalAirPressure
+    watervaporpressure=vaporPressure(temperature); watervaporpressure.toPa()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\A K M Aminul Islam\python_projects\psychro-1.0.0\psychro\psychro_functions.py", line 46, in vaporPressure
+    else: raise ValueError("Invalid Temperature Value for liquid water.")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Invalid Temperature Value for liquid water.
+>>>
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(150,'C'),relHumidity=100)
+623229.2273156545 Pa
+>>>
+>>> psyf.totalAirPressure(temp.Temperature(0,'C'),relHumidity=100)
+95044.20658525814 Pa
+>>>
+>>>
+-------------
+Result: Okay
+-------------
+
+
+# ==========================================================
+# Function No: 05
+# Test on dewPoint(temperature = None, relHumidity = None)
+# ==========================================================
+>>>
+>>> str(t1)
+'TEMPERATURE: 25 degree C'
+>>> time1=time.time();psyf.dewPoint(t1,20);time.time()-time1
+0.5435159639273195 C
+0.0
+>>>
+>>> time1=time.time();psyf.dewPoint(t1,50);time.time()-time1
+13.871190052161069 C
+0.0
+>>>
+>>> time1=time.time();psyf.dewPoint(t1,80);time.time()-time1
+21.31023313490215 C
+0.0
+>>>
+>>> time1=time.time();psyf.dewPoint(t1,98);time.time()-time1
+24.661572305766583 C
+0.0
+>>>
+>>> time1=time.time();psyf.dewPoint(t1,100);time.time()-time1
+25 C
+0.015636920928955078
+>>>
+>>>
+>>> str(t2)
+'TEMPERATURE: 100 degree C'
+>>> time1=time.time();psyf.dewPoint(t2,10);time.time()-time1
+46.087082059865224 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t2,20);time.time()-time1
+60.369384871308114 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t2,50);time.time()-time1
+81.67121272813358 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t2,80);time.time()-time1
+93.86706564618021 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t2,95);time.time()-time1
+98.56964498788864 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t2,100);time.time()-time1
+100 C
+0.003948688507080078
+>>>
+>>>
+>>> t3=temp.Temperature(40,'C')
+>>> str(t3)
+'TEMPERATURE: 40 degree C'
+>>> time1=time.time();psyf.dewPoint(t3,10);time.time()-time1
+2.6595947435725122 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t3,30);time.time()-time1
+19.12297576151576 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t3,50);time.time()-time1
+27.580723730386012 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t3,70);time.time()-time1
+33.46613586304659 C
+0.0
+>>> time1=time.time();psyf.dewPoint(t3,90);time.time()-time1
+38.03705799153465 C
+0.0
+>>>
+---------------------------------------------
+Result: Matched with the psychrometric chart
+---------------------------------------------
+
+# =====================================================================
+# Function No: 06
+# Test on calculatePartialPressure(temperature=None, relHumidity=None)
+# =====================================================================
+>>>
+>>> print(t1)
+TEMPERATURE: 25 degree C
+>>> print(t2)
+TEMPERATURE: 100 degree C
+>>> print(t3)
+TEMPERATURE: 40 degree C
+>>>
+>>> psyf.calculatePartialPressure(t1,20)
+633.4521069799686 Pa
+>>>
+>>> psyf.calculatePartialPressure(t1,50)
+1583.6302674499211 Pa
+>>> psyf.calculatePartialPressure(t1,80)
+2533.8084279198742 Pa
+>>> psyf.calculatePartialPressure(t1,100)
+3167.2605348998422 Pa
+>>>
+>>>
+>>> print(t3)
+TEMPERATURE: 40 degree C
+>>>
+>>> psyf.calculatePartialPressure(t3,100)
+7376.946885082784 Pa
+>>> psyf.calculatePartialPressure(t3,80)
+5901.5575080662275 Pa
+>>> psyf.calculatePartialPressure(t3,60)
+4426.168131049671 Pa
+>>> psyf.calculatePartialPressure(t3,40)
+2950.7787540331137 Pa
+>>> psyf.calculatePartialPressure(t3,20)
+1475.3893770165569 Pa
+>>> psyf.calculatePartialPressure(t3,0)
+0.0 Pa
+>>>
+>>>
+>>> psyf.calculatePartialPressure(t3,110)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\A K M Aminul Islam\python_projects\psychro-1.0.0\psychro\psychro_functions.py", line 120, in calculatePartialPressure
+    raise ValueError("Relative humidity is out of range")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Relative humidity is out of range
+>>>
+---------------------------------------------
+Result: Matched with the psychrometric chart
+---------------------------------------------
+
+
+# ===================================================================
+# Function No: 07
+# Test on calculateRelativeHumidity(temperature=None, dewpoint=None)
+# ===================================================================
+>>>
+>>> psyf.calculateRelativeHumidity(temp.Temperature(25,'C'),temp.Temperature(10.6,'C'))
+40.299306220114566		# psychrometric Chart Value = 40; error=0.75%
+>>>
+>>> psyf.calculateRelativeHumidity(temp.Temperature(40,'C'),temp.Temperature(12.5,'C'))
+19.625184005377108		# psychrometric Chart Value = 20; error=1.9%
+>>>
+>>> psyf.calculateRelativeHumidity(temp.Temperature(22,'C'),temp.Temperature(20.3,'C'))
+90.60642961142491		# psychrometric Chart Value = 90; error=0.66%
+>>>
+>>> psyf.calculateRelativeHumidity(temp.Temperature(45,'C'),temp.Temperature(32.2,'C'))
+50.18222018779378		# psychrometric Chart Value = 90; error=0.36%
+>>>
+>>> psyf.calculateRelativeHumidity(temp.Temperature(54.1,'C'),temp.Temperature(31,'C'))
+29.80131896750845		# psychrometric Chart Value = 30; error=0.66%
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 2%
+----------------------------------------------------------------------
+
+
+
+# =====================================================================
+# Function No: 08
+# Test on calculateMoleFraction(temperature=None, relHumidity=None)
+# =====================================================================
+>>>
+>>> psyf.calculateMoleFraction(temp.Temperature(25,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+0.006251686227288117
+>>> psyf.calculateMoleFraction(temp.Temperature(25,'C'),relHumidity=40,pressure=pressure.Pressure(1,'atm'))
+0.012503372454576235
+>>> psyf.calculateMoleFraction(temp.Temperature(25,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+0.02500674490915247
+>>> psyf.calculateMoleFraction(temp.Temperature(25,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.031258431136440584
+>>>
+>>> psyf.calculateMoleFraction(temp.Temperature(50,'C'),relHumidity=25,pressure=pressure.Pressure(1,'atm'))
+0.030438414753011445
+>>> psyf.calculateMoleFraction(temp.Temperature(50,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+0.06087682950602289
+>>> psyf.calculateMoleFraction(temp.Temperature(50,'C'),relHumidity=75,pressure=pressure.Pressure(1,'atm'))
+0.09131524425903433
+>>> psyf.calculateMoleFraction(temp.Temperature(50,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.12175365901204578
+>>>
+>>> psyf.calculateMoleFraction(temp.Temperature(100,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+0.19999553771266051
+>>> psyf.calculateMoleFraction(temp.Temperature(100,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+0.4999888442816513
+>>> psyf.calculateMoleFraction(temp.Temperature(100,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.9999776885633026
+>>>
+>>> psyf.calculateMoleFraction(temp.Temperature(100,'C'),relHumidity=101,pressure=pressure.Pressure(1,'atm'))
+Relative humidity is out of range
+>>> psyf.calculateMoleFraction(temp.Temperature(100,'C'),relHumidity=-1,pressure=pressure.Pressure(1,'atm'))
+Relative humidity is out of range
+>>>
+---------------------------------------------
+Result: Matched with the psychrometric chart
+---------------------------------------------
+
+# =====================================================================
+# Function No: 9
+# Test on calculateMassFraction(temperature=None, relHumidity=None)
+# =====================================================================
+>>>
+>>> psyf.calculateAbsoluteHumidity(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+0.004810811601911249		# psychrometric Chart Value = 0.0048; error=0.2%
+>>>
+>>> psyf.calculateAbsoluteHumidity(temp.Temperature(50,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+0.02357295563271035			# psychrometric Chart Value = 0.0236; error=0%
+>>>
+>>> psyf.calculateAbsoluteHumidity(temp.Temperature(25,'C'),relHumidity=39.9,pressure=pressure.Pressure(1,'atm'))
+0.007853105324824155		# psychrometric Chart Value = 0.0078; error=0.64%
+		
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 1%
+----------------------------------------------------------------------
+
+# =====================================================================
+# Function No: 10
+# Test on calculateMassFraction(temperature=None, relHumidity=None)
+# =====================================================================
+>>>
+>>> psyf.calculateMassFraction(temp.Temperature(25,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+0.003896511359781146
+>>> psyf.calculateMassFraction(temp.Temperature(25,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+0.00977603206601014
+>>> psyf.calculateMassFraction(temp.Temperature(25,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+0.01569765535947067
+>>> psyf.calculateMassFraction(temp.Temperature(25,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.019669018409698046
+>>>
+>>> psyf.calculateMassFraction(temp.Temperature(50,'C'),relHumidity=40,pressure=pressure.Pressure(1,'atm'))
+0.030850807814082927
+>>> psyf.calculateMassFraction(temp.Temperature(50,'C'),relHumidity=70,pressure=pressure.Pressure(1,'atm'))
+0.054759566206584086
+>>> psyf.calculateMassFraction(temp.Temperature(50,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.07936076906438978
+>>>
+>>> psyf.calculateMassFraction(temp.Temperature(100,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+0.21040822228610587
+>>> psyf.calculateMassFraction(temp.Temperature(100,'C'),relHumidity=60,pressure=pressure.Pressure(1,'atm'))
+0.48257519637530777
+>>> psyf.calculateMassFraction(temp.Temperature(100,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+0.9999641184723024
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 1%
+----------------------------------------------------------------------
+
+
+# =======================================================================================
+# Function No: 11
+# Test on calculateVolumetricHumidity(temperature=None, relHumidity=None, pressure=None)
+# =======================================================================================
+>>>
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(25,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+(0.0045997780030576285, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(25,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(0.01149944500764407, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(25,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(0.018399112012230514, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(25,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(0.02299889001528814, 'kg/m3')
+>>>
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(50,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+(0.01653036222571025, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(50,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(0.04132590556427564, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(50,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(0.066121448902841, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(50,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(0.08265181112855127, 'kg/m3')
+>>>
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(80,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+(0.058073161832422166, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(80,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(0.14518290458105542, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(80,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(0.23229264732968866, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(80,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(0.29036580916211085, 'kg/m3')
+>>>
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(100,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+(0.11757402147705206, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(100,'C'),relHumidity=40,pressure=pressure.Pressure(1,'atm'))
+(0.2351480429541041, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(100,'C'),relHumidity=60,pressure=pressure.Pressure(1,'atm'))
+(0.352.7220644311562, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(100,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(0.4702960859082082, 'kg/m3')
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(100,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(0.5878701073852603, 'kg/m3')
+>>>
+>>>
+>>> psyf.calculateVolumetricHumidity(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(0.005361149459180896, 'kg/m3')		# Book Value = 0.00535; error=0.18%
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 0.5%
+----------------------------------------------------------------------
+
+
+# ================================================================================
+# Function No: 12
+# Test on calculateHumidVolume(temperature=None, relHumidity=None, pressure=None)
+# ================================================================================
+>>>
+>>> psyf.calculateHumidVolume(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(0.8973297229634878, 'm3/kgDA')		# Book Value = 0.895; error=0.22%
+>>>
+>>>
+>>> psyf.calculateHumidVolume(temp.Temperature(25,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(0.8585071593623355, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(50,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(0.975325159925745, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(80,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(1.3062937678973523, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(100,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(2.1152980797656578, 'm3/kgDA')
+>>>
+>>>
+>>> psyf.calculateHumidVolume(temp.Temperature(95,'C'),relHumidity=95,pressure=pressure.Pressure(1,'atm'))
+(5.028205770310495, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(99,'C'),relHumidity=99,pressure=pressure.Pressure(1,'atm'))
+(23.519695200193535, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(100,'C'),relHumidity=99,pressure=pressure.Pressure(1,'atm'))
+(105.53415650865857, 'm3/kgDA')
+>>> psyf.calculateHumidVolume(temp.Temperature(100,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(47404.954324424994, 'm3/kgDA')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 0.5%
+----------------------------------------------------------------------
+
+
+# ================================================================================
+# Function No: 13
+# Test on calculateHumidDensity(temperature=None, relHumidity=None, pressure=None)
+# ================================================================================
+>>>
+>>> psyf.calculateHumidDensity(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(1.1197166322845005, 'kg/m3')		# Book Value = 1.11732; error=0.21%
+>>>
+>>>
+>>> psyf.calculateHumidDensity(temp.Temperature(25,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+(1.1790446995006012, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(25,'C'),relHumidity=60,pressure=pressure.Pressure(1,'atm'))
+(1.1748485722361512, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(25,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(1.1720511540598515, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(25,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(1.1692537358835515, 'kg/m3')
+>>>
+>>> psyf.calculateHumidDensity(temp.Temperature(50,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(1.041435395814426, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(50,'C'),relHumidity=70,pressure=pressure.Pressure(1,'atm'))
+(1.0565151460937714, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(50,'C'),relHumidity=40,pressure=pressure.Pressure(1,'atm'))
+(1.0715948963731168, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(50,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(1.0866746466524622, 'kg/m3')
+>>>
+>>> psyf.calculateHumidDensity(temp.Temperature(80,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+(0.9459845099166795, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(80,'C'),relHumidity=70,pressure=pressure.Pressure(1,'atm'))
+(0.87534852776396, 'kg/m3')
+>>> psyf.calculateHumidDensity(temp.Temperature(80,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(0.8223715411494203, 'kg/m3')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 0.5%
+----------------------------------------------------------------------
+
+
+# ======================================================================================
+# Function No: 14
+# Test on calculateMolarMassHumidAir(temperature=None, relHumidity=None, pressure=None)
+# ======================================================================================
+>>>
+>>> psyf.calculateMolarMassHumidAir(temp.Temperature(25,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(28.775906977174692, 'g/mol')
+>>> psyf.calculateMolarMassHumidAir(temp.Temperature(50,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(28.28058134739757, 'g/mol')
+>>> psyf.calculateMolarMassHumidAir(temp.Temperature(80,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(26.38844182371158, 'g/mol')
+>>> psyf.calculateMolarMassHumidAir(temp.Temperature(100,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(23.47362212164876, 'g/mol')
+>>> psyf.calculateMolarMassHumidAir(temp.Temperature(100,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(18.000244243297526, 'g/mol')
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 1%
+----------------------------------------------------------------------
+
+
+# =======================================================================================
+# Function No: 15
+# Test on calculateWetBulbTemperature(temperature=None, relHumidity=None, pressure=None)
+# =======================================================================================
+>>>
+>>> psyf.calculateWetBulbTemperature(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+19.174391280000005 C		# psychrometric Chart Value = 19.0; error=0.89%
+>>>
+>>> import time
+>>> time1=time.time(); psyf.calculateWetBulbTemperature(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm')); time.time()-time1
+19.174391280000005 C		# psychrometric Chart Value = 19.0; error=0.89%
+0.0
+>>>
+>>> time1=time.time(); psyf.calculateWetBulbTemperature(temp.Temperature(51,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm')); time.time()-time1
+28.85979721680002 C			# psychrometric Chart Value = 29.0; error=0.48%
+0.0
+>>>
+>>> time1=time.time(); psyf.calculateWetBulbTemperature(temp.Temperature(54,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm')); time.time()-time1
+30.706215636779927 C		# psychrometric Chart Value = 31.0; error=0.97%
+0.0
+>>>
+>>> psyf.calculateWetBulbTemperature(temp.Temperature(34.6,'C'),relHumidity=90,pressure=pressure.Pressure(1,'atm'))
+32.656262354555416 C		# psychrometric Chart Value = 33.0; error=1.06%
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 1%
+----------------------------------------------------------------------
+
+
+# =======================================================================================
+# Function No: 16
+# Test on calculateWetBulbTemperature(temperature=None, relHumidity=None, pressure=None)
+# =======================================================================================
+>>>
+>>> psyf.calculateWetBulbTemperature2(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+19.48618865108739 C			# psychrometric Chart Value = 19.0; error=2.5%
+>>>
+>>> psyf.calculateWetBulbTemperature2(temp.Temperature(51,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+29.40489461585247 C			# psychrometric Chart Value = 29.0; error=1.38%
+>>>
+>>> psyf.calculateWetBulbTemperature2(temp.Temperature(54,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+31.358012608842614 C		# psychrometric Chart Value = 31.0; error=1.13%
+>>>
+>>> psyf.calculateWetBulbTemperature2(temp.Temperature(34.6,'C'),relHumidity=90,pressure=pressure.Pressure(1,'atm'))
+33.09000838208044 C			# psychrometric Chart Value = 33.0; error=0.3%
+>>>
+>>> time1=time.time(); psyf.calculateWetBulbTemperature2(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm')); time.time()-time1
+19.48618865108739 C
+0.0
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+
+
+# ====================================================================
+# Function No: 17
+# Test on resudualEnthalpy(T,P,Tc,Pc,w)
+# ====================================================================
+>>>
+
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+
+# ====================================================================
+# Function No: 18
+# Test on delHH20(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.delHH20(temp.Temperature(30,'C'),pressure.Pressure(1,'atm'))
+(46013.41943831089, 'J/mol')	# Book value:46015.2, error=0.004% 
+>>>
+>>> psyf.delHH20(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(46697.55062859157, 'J/mol')	# Book value:46659.6, error=0.08% 
+>>>
+>>> psyf.delHH20(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(48388.92364101282, 'J/mol')	# Book value:48168, error=0.46% 
+>>>
+>>> psyf.delHH20(temp.Temperature(120,'C'),pressure.Pressure(1,'atm'))
+(49064.968691576025, 'J/mol')	# Book value:48708, error=0.73% 
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error less than 1%
+----------------------------------------------------------------------
+
+# ====================================================================
+# Function No: 19
+# Test on de1H02(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.de1H02(temp.Temperature(25,'C'),pressure.Pressure(1,'atm'))
+(0, 'J/mol')
+>>>
+>>> psyf.de1H02(temp.Temperature(27,'C'),pressure.Pressure(1,'atm'))
+(61.431486497836616, 'J/mol')
+>>>
+>>> psyf.de1H02(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(773.9433611068828, 'J/mol')
+>>>
+>>> psyf.de1H02(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(2356.680218200625, 'J/mol')
+>>>
+>>> psyf.de1H02(temp.Temperature(150,'C'),pressure.Pressure(1,'atm'))
+(3978.4111208384315, 'J/mol')
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+# ====================================================================
+# Function No: 20
+# Test on de1HN2(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.delHN2(temp.Temperature(25,'C'),pressure.Pressure(1,'atm'))
+(0, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(768.0151188785692, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(2318.5269311699153, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(150,'C'),pressure.Pressure(1,'atm'))
+(3889.961043866634, 'J/mol')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+# ====================================================================
+# Function No: 21
+# Test on de1HC02(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.delHN2(temp.Temperature(25,'C'),pressure.Pressure(1,'atm'))
+(0, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(768.0151188785692, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(2318.5269311699153, 'J/mol')
+>>>
+>>> psyf.delHN2(temp.Temperature(150,'C'),pressure.Pressure(1,'atm'))
+(3889.961043866634, 'J/mol')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+# ====================================================================
+# Function No: 22
+# Test on de1HAr(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.delHAr(temp.Temperature(25,'C'),pressure.Pressure(1,'atm'))
+(0, 'J/mol')
+>>>
+>>> psyf.delHAr(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(520.8080364569649, 'J/mol')
+>>>
+>>> psyf.delHAr(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(1561.8375984876461, 'J/mol')
+>>>
+>>> psyf.delHAr(temp.Temperature(150,'C'),pressure.Pressure(1,'atm'))
+(2602.35291875212, 'J/mol')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+# ====================================================================
+# Function No: 23
+# Test on de1HDryAir(temperature,pressure)
+# ====================================================================
+>>>
+>>> psyf.delHDryAir(temp.Temperature(25,'C'),pressure.Pressure(1,'atm'))
+(0.0, 'J/mol')
+>>>
+>>> psyf.delHDryAir(temp.Temperature(50,'C'),pressure.Pressure(1,'atm'))
+(766.873073988784, 'J/mol')
+>>>
+>>> psyf.delHDryAir(temp.Temperature(100,'C'),pressure.Pressure(1,'atm'))
+(2319.333120285029, 'J/mol')
+>>>
+>>> psyf.delHDryAir(temp.Temperature(150,'C'),pressure.Pressure(1,'atm'))
+(3896.4271005644346, 'J/mol')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+# =========================================================================
+# Function No: 24
+# Test on delHHumidAir(temperature=None, relHumidity=None, pressure=None)
+# =========================================================================
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(143.29127575718, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+(429.87382727154005, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(716.4563787858999, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=70,pressure=pressure.Pressure(1,'atm'))
+(1003.0389303002602, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=90,pressure=pressure.Pressure(1,'atm'))
+(1289.6214818146202, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(25,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(1432.9127575717998, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(41,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(842.4772599131693, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(41,'C'),relHumidity=20,pressure=pressure.Pressure(1,'atm'))
+(1194.8799687041007, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(41,'C'),relHumidity=60,pressure=pressure.Pressure(1,'atm'))
+(2604.490803867827, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(41,'C'),relHumidity=80,pressure=pressure.Pressure(1,'atm'))
+(3309.2962214496893, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(41,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(4014.1016390315526, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=10,pressure=pressure.Pressure(1,'atm'))
+(1326.0958793063173, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=30,pressure=pressure.Pressure(1,'atm'))
+(2444.5414899413836, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=50,pressure=pressure.Pressure(1,'atm'))
+(3562.9871005764503, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=70,pressure=pressure.Pressure(1,'atm'))
+(4681.432711211516, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=90,pressure=pressure.Pressure(1,'atm'))
+(5799.878321846582, 'J/mol')
+>>>
+>>> psyf.delHHumidAir(temp.Temperature(50,'C'),relHumidity=100,pressure=pressure.Pressure(1,'atm'))
+(6359.101127164116, 'J/mol')
+>>>
+>>>
+----------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error within 2.5%
+----------------------------------------------------------------------
+
+
+# ==================================================================================
+# Function No: 25
+# Test on humidSaturationEnthalpy(temperature=None, relHumidity=None, pressure=None)
+# ==================================================================================
+>>>
+>>> lib.humidSaturationEnthalpy(lib.Temperature(0,'C'),pressure=lib.Pressure(1,'atm'))
+(9.469999997726383, 'kJ/kgDA')		# Actual value:9.47, error=0%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(10,'C'),pressure=lib.Pressure(1,'atm'))
+(29.738970275577053, 'kJ/kgDA')		# Actual value:29.35, error=1.3%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(20,'C'),pressure=lib.Pressure(1,'atm'))
+(58.32944376044787, 'kJ/kgDA')		# Actual value:57.56, error=1.3%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(25,'C'),pressure=lib.Pressure(1,'atm'))
+(77.45186010388075, 'kJ/kgDA')		# Actual value:76.50, error=1.2%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(30,'C'),pressure=lib.Pressure(1,'atm'))
+(101.11177489028077, 'kJ/kgDA')		# Actual value:100.01, error=1.1%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(40,'C'),pressure=lib.Pressure(1,'atm'))
+(167.96904061735157, 'kJ/kgDA')		# Actual value:166.69, error=0.76%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(50,'C'),pressure=lib.Pressure(1,'atm'))
+(276.48833883590646, 'kJ/kgDA')		# Actual value:275.35, error=0.41%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(60,'C'),pressure=lib.Pressure(1,'atm'))
+(461.1589297442494, 'kJ/kgDA')		# Actual value:460.89, error=0.06%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(70,'C'),pressure=lib.Pressure(1,'atm'))
+(801.2415620377469, 'kJ/kgDA')		# Actual value:803.48, error=0.28%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(80,'C'),pressure=lib.Pressure(1,'atm'))
+(1531.6841930643911, 'kJ/kgDA')		# Actual value:1541.79, error=0.66%
+>>> lib.humidSaturationEnthalpy(lib.Temperature(90,'C'),pressure=lib.Pressure(1,'atm'))
+(3823.6618228584753, 'kJ/kgDA')		# Actual value:3867.63, error=1.13%
+>>>
+>>>
+------------------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error mostly less than 1.5% 
+------------------------------------------------------------------------------
+
+
+# ============================================================================
+# Function No: 26
+# Test on humidEnthalpy(temperature=None, relHumidity=None, pressure=None)
+# ============================================================================
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(41,'C'),10,pressure.Pressure(1,'atm'))
+(54.17838773600177, 'kJ/kgDA')	# Actual value:53.5, error=1.3%
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(25,'C'),20,pressure.Pressure(1,'atm'))
+(34.84431016040783, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(25,'C'),60,pressure.Pressure(1,'atm'))
+(54.95384131804485, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(25,'C'),90,pressure.Pressure(1,'atm'))
+(69.86374526728338, 'kJ/kgDA')	# Actual value:71.4 error=2.16%
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(41,'C'),10,pressure.Pressure(1,'atm'))
+(54.17838773600177, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(40,'C'),30,pressure.Pressure(1,'atm'))
+(75.66980789305465, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(40,'C'),60,pressure.Pressure(1,'atm'))
+(111.68796398525804, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(40,'C'),90,pressure.Pressure(1,'atm'))
+(148.76206620545477, 'kJ/kgDA')	# Actual value:53.5, error=1.3%
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(70,'C'),30,pressure.Pressure(1,'atm'))
+(225.86906920587953, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(70,'C'),60,pressure.Pressure(1,'atm'))
+(398.0934515469371, 'kJ/kgDA')
+>>>
+>>> psyf.enthalpyHumidAir(temp.Temperature(70,'C'),90,pressure.Pressure(1,'atm'))
+(586.3726078691229, 'kJ/kgDA')	# Actual value:53.5, error=1.3%
+>>>
+>>>
+----------------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error mostly less than 3% 
+----------------------------------------------------------------------------
+
+
+# ============================================================================
+# Function No: 27
+# Test on dryAirEnthalpy(temperature=None, pressure=None)
+# ============================================================================
+>>>
+>>> lib.dryAirEnthalpy(lib.Temperature(0,'C'),pressure=lib.Pressure(1,'atm'))
+(0.0, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(10,'C'),pressure=lib.Pressure(1,'atm'))
+(10.483009796754192, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(20,'C'),pressure=lib.Pressure(1,'atm'))
+(21.001305089321338, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(25,'C'),pressure=lib.Pressure(1,'atm'))
+(26.273618984842212, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(30,'C'),pressure=lib.Pressure(1,'atm'))
+(31.554678167105262, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(40,'C'),pressure=lib.Pressure(1,'atm'))
+(42.14294352576413, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(50,'C'),pressure=lib.Pressure(1,'atm'))
+(52.765935079386864, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(60,'C'),pressure=lib.Pressure(1,'atm'))
+(63.42350375893177, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(70,'C'),pressure=lib.Pressure(1,'atm'))
+(74.11551544199179, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(80,'C'),pressure=lib.Pressure(1,'atm'))
+(84.84184916586922, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(100,'C'),pressure=lib.Pressure(1,'atm'))
+(106.39705562024585, 'kJ/kgDA')
+>>>
+----------------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error mostly less than  
+----------------------------------------------------------------------------
+
+# ============================================================================
+# Function No: 28
+# Test on waterVaporEnthalpy(temperature=None, relHumidity=None, pressure=None)
+# ============================================================================
+>>>
+>>> lib.waterVaporEnthalpy(lib.Temperature(0,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(9.389831832508584, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(10,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(19.175385356901867, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(20,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(37.246823461943585, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(30,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(69.47449256660074, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(40,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(125.74132516614152, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(50,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(223.63407986174076, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(60,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(397.6413762139816, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(70,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(727.0228019692751, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(80,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(1446.7241618231646, 'kJ/kgDA')
+>>> lib.waterVaporEnthalpy(lib.Temperature(90,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(3727.916067566701, 'kJ/kgDA')
+>>>
+------------------------------------------------------------------------------
+Result: Matched with the psychrometric chart with error mostly less than 1.5%  
+------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+More Test Results
+===================================
+>>>
+>>> import importlib as iml
+>>> import psychro as psy
+>>> iml.reload(psy)
+<module 'psychro' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\__init__.py'>
+>>>
+>>> psy.version
+'1.0.0'
+>>>
+>>> iml.reload(psy)
+<module 'psychro' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\__init__.py'>
+>>>
+>>>
+>>> p1=lib.Pressure(1,'atm')
+>>> p1
+101325 Pa
+>>> print(p1)
+PRESSURE: 1 atm absolute
+>>>
+
+>>>
+>>> iml.reload(lib)
+<module 'psychro.lib' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\lib.py'>
+>>>
+>>> lib.satVaporPressure(lib.Temperature(25,'C'))
+3167.2605348998427 Pa
+>>> print(lib.satVaporPressure(lib.Temperature(25,'C')))
+PRESSURE: 0.0238 mHg absolute
+>>>
+
+
+
+>>>
+>>> lib.satTemperature(lib.Pressure(0.5,'atm'))
+81.67176974509982 C
+>>>
+>>> lib.satTemperature(lib.Pressure(0.2,'atm'))
+60.369867891184185 C
+>>>
+>>> lib.satTemperature(lib.Pressure(1,'atm'))
+100.00062490553529 C
+>>>
+
+>>>
+>>> import psychro.src.psychro_functions as psyf
+>>> iml.reload(psyf)
+<module 'psychro.src.psychro_functions' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\src\\psychro_functions.py'>
+>>> iml.reload(lib)
+<module 'psychro.lib' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\lib.py'>
+>>>
+>>>
+>>> lib.dryAirPressure(lib.Temperature(30,'C'))
+104807.1427720396 Pa
+>>> lib.dryAirPressure(lib.Temperature(80,'C'))
+122093.49322099879 Pa
+>>> lib.dryAirPressure(lib.Temperature(150,'C'))
+146294.3838495417 Pa
+>>> lib.dryAirPressure(lib.Temperature(500,'C'))
+267298.836992256 Pa
+>>>
+
+
+>>>
+>>> lib.humidAirPressure(lib.Temperature(30,'C'),40)
+109050.40811215986 Pa
+>>> lib.humidAirPressure(lib.Temperature(60,'C'),40)
+135100.23061650075 Pa
+>>> lib.humidAirPressure(lib.Temperature(60,'C'),80)
+135100.23061650075 Pa
+>>> lib.humidAirPressure(lib.Temperature(60,'C'),100)
+135100.23061650075 Pa
+>>>
+>>> lib.humidAirPressure(lib.Temperature(100,'C'),100)
+230330.7726942591 Pa
+>>>
+
+>>>
+>>> iml.reload(lib)
+<module 'psychro.lib' from 'C:\\Users\\A K M Aminul Islam\\python_projects\\psychro-1.0.0\\psychro\\lib.py'>
+>>> lib.dewPoint(lib.Temperature(100,'C'),relHumidity=30)
+69.4227581313935 C
+>>> lib.dewPoint(lib.Temperature(41,'C'),relHumidity=10)
+3.4060966713632297 C
+>>>
+>>> lib.dewPoint(lib.Temperature(41,'C'),relHumidity=30)
+19.976670494795087 C
+>>>
+>>> lib.dewPoint(lib.Temperature(40,'C'),relHumidity=30)
+19.12297576151576 C
+>>> lib.dewPoint(lib.Temperature(40,'C'),relHumidity=50)
+27.580723730386012 C
+>>>
+
+
+>>>
+>>> lib.saturatedTemperature(lib.Temperature(40,'C'),relHumidity=50)
+27.580723730386012 C
+>>> lib.saturatedTemperature(lib.Temperature(40,'C'),relHumidity=95)
+39.04085582310455 C
+>>> lib.saturatedTemperature(lib.Temperature(40,'C'),relHumidity=110)
+Relative humidity is out of range
+>>> lib.saturatedTemperature(lib.Temperature(70,'C'),relHumidity=70)
+61.97611521231477 C
+>>>
+>>> lib.saturatedTemperature(lib.Temperature(100,'C'),relHumidity=70)
+90.30552676783071 C
+>>>
+>>> lib.saturatedTemperature(lib.Temperature(100,'C'),relHumidity=10)
+46.087082059865224 C
+>>>
+
+
+
+>>>
+>>> lib.partialPressure(lib.Temperature(100,'C'),relHumidity=10)
+10132.273929367662 Pa
+>>> lib.partialPressure(lib.Temperature(10,'C'),relHumidity=10)
+122.61074473565868 Pa
+>>> lib.partialPressure(lib.Temperature(10,'C'),relHumidity=100)
+1226.1074473565868 Pa
+>>> lib.partialPressure(lib.Temperature(30,'C'),relHumidity=80)
+3394.6122720961994 Pa
+>>> lib.partialPressure(lib.Temperature(70,'C'),relHumidity=80)
+24933.47856964034 Pa
+>>>
+
+
+>>>
+>>> lib.relativeHumidity(lib.Temperature(70,'C'),lib.Temperature(70,'C'))
+100.00000000000001
+>>> lib.relativeHumidity(lib.Temperature(70,'C'),lib.Temperature(80,'C'))
+Dew point cannot be greater than the air temperature.
+>>> lib.relativeHumidity(lib.Temperature(70,'C'),lib.Temperature(6,'C'))
+2.9940746474604847
+>>> lib.relativeHumidity(lib.Temperature(70,'C'),lib.Temperature(60,'C'))
+63.91816535168041
+>>> lib.relativeHumidity(lib.Temperature(41,'C'),lib.Temperature(3.5,'C'))
+10.06677994285378
+>>> lib.relativeHumidity(lib.Temperature(25,'C'),lib.Temperature(10,'C'))
+38.71192261723299
+>>>
+
+
+
+>>>
+>>> lib.partialPressure(lib.Temperature(70,'C'),relHumidity=80,pressure=lib.Pressure(1,'atm'))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: partialPressure() got an unexpected keyword argument 'pressure'
+>>>
+>>> lib.moleFraction(lib.Temperature(70,'C'),relHumidity=80,pressure=lib.Pressure(1,'atm'))
+0.24607430120543144
+>>> lib.moleFraction(lib.Temperature(70,'C'),relHumidity=30,pressure=lib.Pressure(1,'atm'))
+0.09227786295203677
+>>> lib.moleFraction(lib.Temperature(100,'C'),relHumidity=30,pressure=lib.Pressure(1,'atm'))
+0.29999330656899076
+>>> lib.moleFraction(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+0.9999776885633026
+>>>
+
+
+>>>
+>>> lib.absoluteHumidity(lib.Temperature(25,'C'),relHumidity=30,pressure=lib.Pressure(1,'atm'))
+(0.00588614524392149, 'kg/kgDA')
+>>> lib.absoluteHumidity(lib.Temperature(41,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(0.009696645290770807, 'kg/kgDA')
+>>> lib.absoluteHumidity(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+(0.004810811601911249, 'kg/kgDA')
+>>> lib.absoluteHumidity(lib.Temperature(70,'C'),relHumidity=40,pressure=lib.Pressure(1,'atm'))
+(0.08723801732005906, 'kg/kgDA')
+>>>
+
+
+
+>>>
+>>> lib.moistureContent(lib.Temperature(70,'C'),relHumidity=40,pressure=lib.Pressure(1,'atm'))
+(0.08723801732005906, 'kg/kgDA')
+>>> lib.moistureContent(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+(0.004810811601911249, 'kg/kgDA')
+>>> lib.moistureContent(lib.Temperature(25,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(0.0039117535519329165, 'kg/kgDA')
+>>> lib.moistureContent(lib.Temperature(25,'C'),relHumidity=80,pressure=lib.Pressure(1,'atm'))
+(0.015948001592136316, 'kg/kgDA')
+>>>
+
+
+
+
+>>>
+>>> lib.massFraction(lib.Temperature(25,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(0.003896511359781146, 'kg/kgHA')
+>>> lib.massFraction(lib.Temperature(25,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(0.00977603206601014, 'kg/kgHA')
+>>> lib.massFraction(lib.Temperature(50,'C'),relHumidity=70,pressure=lib.Pressure(1,'atm'))
+(0.054759566206584086, 'kg/kgHA')
+>>> lib.massFraction(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(0.9999641184723024, 'kg/kgHA')
+>>>
+
+
+
+>>>
+>>> lib.volumetricHumidity(lib.Temperature(25,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(0.0045997780030576285, 'kg/m3')
+>>> lib.volumetricHumidity(lib.Temperature(50,'C'),relHumidity=80,pressure=lib.Pressure(1,'atm'))
+(0.066121448902841, 'kg/m3')
+>>> lib.volumetricHumidity(lib.Temperature(100,'C'),relHumidity=40,pressure=lib.Pressure(1,'atm'))
+(0.23514804295410413, 'kg/m3')
+>>> lib.volumetricHumidity(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(0.5878701073852604, 'kg/m3')
+>>>
+
+
+
+>>>
+>>> lib.vaporDensity(lib.Temperature(25,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(0.0045997780030576285, 'kg/m3')
+>>> lib.vaporDensity(lib.Temperature(50,'C'),relHumidity=80,pressure=lib.Pressure(1,'atm'))
+(0.066121448902841, 'kg/m3')
+>>> lib.vaporDensity(lib.Temperature(100,'C'),relHumidity=40,pressure=lib.Pressure(1,'atm'))
+(0.23514804295410413, 'kg/m3')
+>>> lib.vaporDensity(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(0.5878701073852604, 'kg/m3')
+>>>
+
+
+>>>
+>>> lib.humidVolume(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+(0.8973297229634878, 'm3/kgDA')
+>>> lib.humidVolume(lib.Temperature(25,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(0.8585071593623355, 'm3/kgDA')
+>>> lib.humidVolume(lib.Temperature(100,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(2.1152980797656578, 'm3/kgDA')
+>>> lib.humidVolume(lib.Temperature(95,'C'),relHumidity=95,pressure=lib.Pressure(1,'atm'))
+(5.028205770310495, 'm3/kgDA')
+>>>
+
+
+
+>>>
+>>> lib.humidDensity(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+(1.1197166322845005, 'kgHA/m3')
+>>>
+>>> lib.humidDensity(lib.Temperature(25,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(1.1692537358835515, 'kgHA/m3')
+>>> lib.humidDensity(lib.Temperature(50,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(1.041435395814426, 'kgHA/m3')
+>>> lib.humidDensity(lib.Temperature(50,'C'),relHumidity=70,pressure=lib.Pressure(1,'atm'))
+(1.0565151460937714, 'kgHA/m3')
+>>> lib.humidDensity(lib.Temperature(80,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(0.8223715411494203, 'kgHA/m3')
+>>>
+
+
+>>>
+>>> lib.humidMolarMass(lib.Temperature(25,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(28.775906977174692, 'g/mol')
+>>> lib.humidMolarMass(lib.Temperature(50,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(28.28058134739757, 'g/mol')
+>>> lib.humidMolarMass(lib.Temperature(80,'C'),relHumidity=50,pressure=lib.Pressure(1,'atm'))
+(26.38844182371158, 'g/mol')
+>>> lib.humidMolarMass(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+(18.000244243297526, 'g/mol')
+>>>
+
+
+>>>
+>>> lib.wetBulbTemperature(lib.Temperature(100,'C'),relHumidity=100,pressure=lib.Pressure(1,'atm'))
+100 C
+>>> lib.wetBulbTemperature(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+19.174391280000005 C
+>>> lib.wetBulbTemperature(lib.Temperature(51,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+28.85979721680002 C
+>>> lib.wetBulbTemperature(lib.Temperature(54,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+30.706215636779927 C
+>>> lib.wetBulbTemperature(lib.Temperature(34.6,'C'),relHumidity=90,pressure=lib.Pressure(1,'atm'))
+32.656262354555416 C
+>>>
+
+
+>>>
+>>> lib.humidEnthalpy(lib.Temperature(34.6,'C'),relHumidity=90,pressure=lib.Pressure(1,'atm'))
+(114.62738263730358, 'kJ/kgDA')
+>>> lib.humidEnthalpy(lib.Temperature(41,'C'),relHumidity=10,pressure=lib.Pressure(1,'atm'))
+(54.17838773600177, 'kJ/kgDA')
+>>> lib.humidEnthalpy(lib.Temperature(25,'C'),relHumidity=20,pressure=lib.Pressure(1,'atm'))
+(34.84431016040783, 'kJ/kgDA')
+>>> lib.humidEnthalpy(lib.Temperature(70,'C'),relHumidity=60,pressure=lib.Pressure(1,'atm'))
+(398.0934515469371, 'kJ/kgDA')
+>>> lib.humidEnthalpy(lib.Temperature(70,'C'),relHumidity=90,pressure=lib.Pressure(1,'atm'))
+(586.3726078691229, 'kJ/kgDA')
+>>>
+
+
+>>>
+>>>
+>>> lib.humidSaturationEnthalpy(lib.Temperature(0,'C'),pressure=lib.Pressure(1,'atm'))
+(9.469999997726383, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(10,'C'),pressure=lib.Pressure(1,'atm'))
+(29.738970275577053, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(20,'C'),pressure=lib.Pressure(1,'atm'))
+(58.32944376044787, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(25,'C'),pressure=lib.Pressure(1,'atm'))
+(77.45186010388075, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(30,'C'),pressure=lib.Pressure(1,'atm'))
+(101.11177489028077, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(40,'C'),pressure=lib.Pressure(1,'atm'))
+(167.96904061735157, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(50,'C'),pressure=lib.Pressure(1,'atm'))
+(276.48833883590646, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(60,'C'),pressure=lib.Pressure(1,'atm'))
+(461.1589297442494, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(70,'C'),pressure=lib.Pressure(1,'atm'))
+(801.2415620377469, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(80,'C'),pressure=lib.Pressure(1,'atm'))
+(1531.6841930643911, 'kJ/kgDA')
+>>> lib.humidSaturationEnthalpy(lib.Temperature(90,'C'),pressure=lib.Pressure(1,'atm'))
+(3823.6618228584753, 'kJ/kgDA')
+>>>
+>>>
+>>>
+
+>>>
+>>>
+>>> lib.dryAirEnthalpy(lib.Temperature(0,'C'),pressure=lib.Pressure(1,'atm'))
+(0.0, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(25,'C'),pressure=lib.Pressure(1,'atm'))
+(26.273618984842212, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(10,'C'),pressure=lib.Pressure(1,'atm'))
+(10.483009796754192, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(20,'C'),pressure=lib.Pressure(1,'atm'))
+(21.001305089321338, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(30,'C'),pressure=lib.Pressure(1,'atm'))
+(31.554678167105262, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(40,'C'),pressure=lib.Pressure(1,'atm'))
+(42.14294352576413, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(50,'C'),pressure=lib.Pressure(1,'atm'))
+(52.765935079386864, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(60,'C'),pressure=lib.Pressure(1,'atm'))
+(63.42350375893177, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(70,'C'),pressure=lib.Pressure(1,'atm'))
+(74.11551544199179, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(80,'C'),pressure=lib.Pressure(1,'atm'))
+(84.84184916586922, 'kJ/kgDA')
+>>> lib.dryAirEnthalpy(lib.Temperature(100,'C'),pressure=lib.Pressure(1,'atm'))
+(106.39705562024585, 'kJ/kgDA')
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
